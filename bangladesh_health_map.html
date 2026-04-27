@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c55e90e9de7a2053f32e9a34e744900d {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c55e90e9de7a2053f32e9a34e744900d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c55e90e9de7a2053f32e9a34e744900d = L.map(
+                "map_c55e90e9de7a2053f32e9a34e744900d",
+                {
+                    center: [23.7, 90.3],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_57524fb16fed17bffb7191b50e842e18 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_57524fb16fed17bffb7191b50e842e18.addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var choropleth_4ce1169bfa5cd08dae5bc08c0a745be1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+        function geo_json_ad7801905c18f4fecb3979226ebbf4c2_styler(feature) {
+            switch(feature.properties.division) {
+                case "dhaka": 
+                    return {"color": "black", "fillColor": "#fed976", "fillOpacity": 0.8, "opacity": 0.5, "weight": 1};
+                case "chattogram": 
+                    return {"color": "black", "fillColor": "#bd0026", "fillOpacity": 0.8, "opacity": 0.5, "weight": 1};
+                case "khulna": case "rangpur": 
+                    return {"color": "black", "fillColor": "#ffffb2", "fillOpacity": 0.8, "opacity": 0.5, "weight": 1};
+                case "mymensingh": 
+                    return {"color": "black", "fillColor": "#f03b20", "fillOpacity": 0.8, "opacity": 0.5, "weight": 1};
+                default:
+                    return {"color": "black", "fillColor": "#fd8d3c", "fillOpacity": 0.8, "opacity": 0.5, "weight": 1};
+            }
+        }
+        function geo_json_ad7801905c18f4fecb3979226ebbf4c2_highlighter(feature) {
+            switch(feature.properties.division) {
+                default:
+                    return {"fillOpacity": 1.0, "weight": 3};
+            }
+        }
+
+        function geo_json_ad7801905c18f4fecb3979226ebbf4c2_onEachFeature(feature, layer) {
+
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_ad7801905c18f4fecb3979226ebbf4c2.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_ad7801905c18f4fecb3979226ebbf4c2_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_ad7801905c18f4fecb3979226ebbf4c2 = L.geoJson(null, {
+                onEachFeature: geo_json_ad7801905c18f4fecb3979226ebbf4c2_onEachFeature,
+            
+                style: geo_json_ad7801905c18f4fecb3979226ebbf4c2_styler,
+            ...{
+}
+        });
+
+        function geo_json_ad7801905c18f4fecb3979226ebbf4c2_add (data) {
+            geo_json_ad7801905c18f4fecb3979226ebbf4c2
+                .addData(data);
+        }
+            geo_json_ad7801905c18f4fecb3979226ebbf4c2_add({"features": [{"geometry": {"coordinates": [[[90.0, 23.5], [91.0, 23.5], [91.0, 24.5], [90.0, 24.5], [90.0, 23.5]]], "type": "Polygon"}, "properties": {"division": "dhaka"}, "type": "Feature"}, {"geometry": {"coordinates": [[[91.0, 21.5], [92.5, 21.5], [92.5, 23.5], [91.0, 23.5], [91.0, 21.5]]], "type": "Polygon"}, "properties": {"division": "chattogram"}, "type": "Feature"}, {"geometry": {"coordinates": [[[88.0, 24.0], [89.5, 24.0], [89.5, 25.5], [88.0, 25.5], [88.0, 24.0]]], "type": "Polygon"}, "properties": {"division": "rajshahi"}, "type": "Feature"}, {"geometry": {"coordinates": [[[88.5, 21.5], [90.0, 21.5], [90.0, 23.5], [88.5, 23.5], [88.5, 21.5]]], "type": "Polygon"}, "properties": {"division": "khulna"}, "type": "Feature"}, {"geometry": {"coordinates": [[[90.0, 21.5], [91.0, 21.5], [91.0, 23.0], [90.0, 23.0], [90.0, 21.5]]], "type": "Polygon"}, "properties": {"division": "barishal"}, "type": "Feature"}, {"geometry": {"coordinates": [[[91.5, 24.0], [92.5, 24.0], [92.5, 25.5], [91.5, 25.5], [91.5, 24.0]]], "type": "Polygon"}, "properties": {"division": "sylhet"}, "type": "Feature"}, {"geometry": {"coordinates": [[[88.5, 25.5], [90.0, 25.5], [90.0, 26.5], [88.5, 26.5], [88.5, 25.5]]], "type": "Polygon"}, "properties": {"division": "rangpur"}, "type": "Feature"}, {"geometry": {"coordinates": [[[89.5, 24.5], [91.0, 24.5], [91.0, 25.5], [89.5, 25.5], [89.5, 24.5]]], "type": "Polygon"}, "properties": {"division": "mymensingh"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_ad7801905c18f4fecb3979226ebbf4c2.addTo(choropleth_4ce1169bfa5cd08dae5bc08c0a745be1);
+        
+    
+    var color_map_b3d28cbd3a211a73e308dcd4e7ae3399 = {};
+
+    
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.color = d3.scale.threshold()
+              .domain([26.1, 26.117835671342686, 26.135671342685374, 26.153507014028058, 26.171342685370742, 26.189178356713427, 26.207014028056115, 26.2248496993988, 26.242685370741484, 26.26052104208417, 26.278356713426856, 26.29619238476954, 26.314028056112225, 26.331863727454913, 26.349699398797597, 26.36753507014028, 26.385370741482966, 26.403206412825654, 26.421042084168338, 26.438877755511022, 26.45671342685371, 26.474549098196395, 26.49238476953908, 26.510220440881763, 26.52805611222445, 26.545891783567136, 26.56372745490982, 26.581563126252508, 26.599398797595192, 26.617234468937877, 26.63507014028056, 26.65290581162325, 26.670741482965933, 26.688577154308618, 26.706412825651302, 26.72424849699399, 26.742084168336675, 26.75991983967936, 26.777755511022047, 26.79559118236473, 26.813426853707416, 26.8312625250501, 26.849098196392788, 26.866933867735472, 26.884769539078157, 26.902605210420845, 26.92044088176353, 26.938276553106213, 26.956112224448898, 26.973947895791586, 26.99178356713427, 27.009619238476954, 27.02745490981964, 27.045290581162327, 27.06312625250501, 27.080961923847696, 27.098797595190383, 27.116633266533068, 27.134468937875752, 27.152304609218437, 27.170140280561125, 27.18797595190381, 27.205811623246493, 27.22364729458918, 27.241482965931866, 27.25931863727455, 27.277154308617234, 27.294989979959922, 27.312825651302607, 27.33066132264529, 27.34849699398798, 27.366332665330663, 27.384168336673348, 27.402004008016032, 27.41983967935872, 27.437675350701404, 27.45551102204409, 27.473346693386773, 27.49118236472946, 27.509018036072145, 27.52685370741483, 27.544689378757518, 27.562525050100202, 27.580360721442887, 27.59819639278557, 27.61603206412826, 27.633867735470943, 27.651703406813628, 27.669539078156312, 27.687374749499, 27.705210420841684, 27.72304609218437, 27.740881763527057, 27.75871743486974, 27.776553106212425, 27.794388777555113, 27.812224448897798, 27.830060120240482, 27.847895791583166, 27.865731462925854, 27.88356713426854, 27.901402805611223, 27.919238476953907, 27.937074148296595, 27.95490981963928, 27.972745490981964, 27.990581162324652, 28.008416833667336, 28.02625250501002, 28.044088176352705, 28.061923847695393, 28.079759519038078, 28.097595190380762, 28.115430861723446, 28.133266533066134, 28.15110220440882, 28.168937875751503, 28.18677354709419, 28.204609218436875, 28.22244488977956, 28.240280561122244, 28.258116232464932, 28.275951903807616, 28.2937875751503, 28.31162324649299, 28.329458917835673, 28.347294589178357, 28.365130260521042, 28.38296593186373, 28.400801603206414, 28.4186372745491, 28.436472945891786, 28.45430861723447, 28.472144288577155, 28.48997995991984, 28.507815631262527, 28.525651302605212, 28.543486973947896, 28.56132264529058, 28.57915831663327, 28.596993987975953, 28.614829659318637, 28.632665330661325, 28.65050100200401, 28.668336673346694, 28.68617234468938, 28.704008016032066, 28.72184368737475, 28.739679358717435, 28.75751503006012, 28.775350701402807, 28.79318637274549, 28.811022044088176, 28.828857715430864, 28.84669338677355, 28.864529058116233, 28.88236472945892, 28.900200400801605, 28.91803607214429, 28.935871743486974, 28.953707414829662, 28.971543086172346, 28.98937875751503, 29.007214428857715, 29.025050100200403, 29.042885771543087, 29.06072144288577, 29.07855711422846, 29.096392785571144, 29.11422845691383, 29.132064128256513, 29.1498997995992, 29.167735470941885, 29.18557114228457, 29.203406813627254, 29.22124248496994, 29.239078156312626, 29.25691382765531, 29.274749498998, 29.292585170340683, 29.310420841683367, 29.32825651302605, 29.34609218436874, 29.363927855711424, 29.381763527054108, 29.399599198396793, 29.41743486973948, 29.435270541082165, 29.45310621242485, 29.470941883767537, 29.48877755511022, 29.506613226452906, 29.524448897795594, 29.54228456913828, 29.560120240480963, 29.577955911823647, 29.59579158316633, 29.61362725450902, 29.631462925851704, 29.649298597194388, 29.667134268537076, 29.68496993987976, 29.702805611222445, 29.720641282565133, 29.738476953907817, 29.7563126252505, 29.774148296593186, 29.791983967935874, 29.809819639278558, 29.827655310621243, 29.845490981963927, 29.863326653306615, 29.8811623246493, 29.898997995991984, 29.91683366733467, 29.934669338677356, 29.95250501002004, 29.970340681362728, 29.988176352705413, 30.006012024048097, 30.02384769539078, 30.041683366733466, 30.059519038076154, 30.077354709418838, 30.095190380761522, 30.11302605210421, 30.130861723446895, 30.14869739478958, 30.166533066132267, 30.18436873747495, 30.202204408817636, 30.22004008016032, 30.237875751503008, 30.255711422845692, 30.273547094188377, 30.29138276553106, 30.30921843687375, 30.327054108216434, 30.344889779559118, 30.362725450901806, 30.38056112224449, 30.398396793587175, 30.416232464929863, 30.434068136272547, 30.45190380761523, 30.469739478957916, 30.4875751503006, 30.505410821643288, 30.523246492985972, 30.541082164328657, 30.558917835671345, 30.57675350701403, 30.594589178356713, 30.6124248496994, 30.630260521042086, 30.64809619238477, 30.665931863727454, 30.683767535070142, 30.701603206412827, 30.71943887775551, 30.737274549098196, 30.755110220440883, 30.772945891783568, 30.790781563126252, 30.80861723446894, 30.826452905811625, 30.84428857715431, 30.862124248496997, 30.87995991983968, 30.897795591182366, 30.91563126252505, 30.933466933867734, 30.951302605210422, 30.969138276553107, 30.98697394789579, 31.00480961923848, 31.022645290581163, 31.040480961923848, 31.058316633266536, 31.07615230460922, 31.093987975951904, 31.11182364729459, 31.129659318637277, 31.14749498997996, 31.165330661322646, 31.18316633266533, 31.201002004008018, 31.218837675350702, 31.236673346693387, 31.254509018036075, 31.27234468937876, 31.290180360721443, 31.30801603206413, 31.325851703406812, 31.3436873747495, 31.361523046092184, 31.37935871743487, 31.397194388777557, 31.41503006012024, 31.432865731462925, 31.450701402805613, 31.468537074148298, 31.486372745490982, 31.504208416833666, 31.52204408817635, 31.53987975951904, 31.557715430861723, 31.575551102204408, 31.593386773547095, 31.61122244488978, 31.629058116232464, 31.646893787575152, 31.664729458917837, 31.68256513026052, 31.70040080160321, 31.718236472945893, 31.736072144288578, 31.753907815631266, 31.771743486973946, 31.789579158316634, 31.80741482965932, 31.825250501002003, 31.84308617234469, 31.860921843687375, 31.87875751503006, 31.896593186372748, 31.914428857715432, 31.932264529058116, 31.9501002004008, 31.967935871743485, 31.985771543086173, 32.00360721442886, 32.02144288577154, 32.03927855711423, 32.05711422845691, 32.0749498997996, 32.09278557114229, 32.11062124248497, 32.128456913827655, 32.14629258517034, 32.164128256513024, 32.18196392785571, 32.1997995991984, 32.21763527054108, 32.23547094188377, 32.25330661322646, 32.27114228456914, 32.288977955911825, 32.306813627254506, 32.324649298597194, 32.34248496993988, 32.36032064128256, 32.37815631262525, 32.39599198396794, 32.41382765531062, 32.43166332665331, 32.449498997995995, 32.467334669338676, 32.485170340681364, 32.503006012024045, 32.52084168336673, 32.53867735470942, 32.5565130260521, 32.57434869739479, 32.59218436873748, 32.61002004008016, 32.627855711422846, 32.645691382765534, 32.663527054108215, 32.6813627254509, 32.69919839679359, 32.71703406813627, 32.73486973947896, 32.75270541082164, 32.77054108216433, 32.788376753507016, 32.8062124248497, 32.824048096192385, 32.84188376753507, 32.859719438877754, 32.87755511022044, 32.89539078156313, 32.91322645290581, 32.9310621242485, 32.94889779559118, 32.96673346693387, 32.984569138276555, 33.002404809619236, 33.020240480961924, 33.03807615230461, 33.05591182364729, 33.07374749498998, 33.09158316633267, 33.10941883767535, 33.12725450901804, 33.145090180360725, 33.162925851703406, 33.180761523046094, 33.198597194388775, 33.21643286573146, 33.23426853707415, 33.25210420841683, 33.26993987975952, 33.28777555110221, 33.30561122244489, 33.323446893787576, 33.341282565130264, 33.359118236472945, 33.37695390781563, 33.394789579158314, 33.412625250501, 33.43046092184369, 33.44829659318637, 33.46613226452906, 33.483967935871746, 33.50180360721443, 33.519639278557115, 33.5374749498998, 33.555310621242484, 33.57314629258517, 33.59098196392786, 33.60881763527054, 33.62665330661323, 33.64448897795591, 33.6623246492986, 33.680160320641285, 33.697995991983966, 33.715831663326654, 33.73366733466934, 33.75150300601202, 33.76933867735471, 33.78717434869739, 33.80501002004008, 33.82284569138277, 33.84068136272545, 33.858517034068136, 33.876352705410824, 33.894188376753505, 33.91202404809619, 33.92985971943888, 33.94769539078156, 33.96553106212425, 33.98336673346694, 34.00120240480962, 34.019038076152306, 34.036873747494994, 34.054709418837675, 34.07254509018036, 34.09038076152304, 34.10821643286573, 34.12605210420842, 34.1438877755511, 34.16172344689379, 34.17955911823647, 34.19739478957916, 34.215230460921845, 34.233066132264526, 34.25090180360721, 34.2687374749499, 34.28657314629258, 34.30440881763527, 34.32224448897796, 34.34008016032064, 34.35791583166333, 34.375751503006015, 34.393587174348696, 34.41142284569138, 34.42925851703407, 34.44709418837675, 34.46492985971944, 34.48276553106213, 34.50060120240481, 34.5184368737475, 34.53627254509018, 34.554108216432866, 34.57194388777555, 34.58977955911824, 34.60761523046092, 34.6254509018036, 34.64328657314629, 34.66112224448898, 34.67895791583166, 34.69679358717435, 34.714629258517036, 34.73246492985972, 34.750300601202404, 34.76813627254509, 34.78597194388777, 34.80380761523046, 34.82164328657315, 34.83947895791583, 34.85731462925852, 34.875150300601206, 34.89298597194389, 34.910821643286575, 34.92865731462926, 34.94649298597194, 34.96432865731463, 34.98216432865731, 35.0])
+              .range(['#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#ffffb2ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#fed976ff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#feb24cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#fd8d3cff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#f03b20ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff', '#bd0026ff']);
+    
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.x = d3.scale.linear()
+              .domain([26.1, 35.0])
+              .range([0, 450 - 50]);
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.legend = L.control({position: 'topright'});
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.legend.addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.xAxis = d3.svg.axis()
+        .scale(color_map_b3d28cbd3a211a73e308dcd4e7ae3399.x)
+        .orient("top")
+        .tickSize(1)
+        .tickValues([26.1, 27.583333333333336, 29.066666666666666, 30.55, 32.03333333333333, 33.516666666666666, 35.0]);
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.svg = d3.select(".legend.leaflet-control").append("svg")
+        .attr("id", 'legend')
+        .attr("width", 450)
+        .attr("height", 40);
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.g = color_map_b3d28cbd3a211a73e308dcd4e7ae3399.svg.append("g")
+        .attr("class", "key")
+        .attr("fill", "black")
+        .attr("transform", "translate(25,16)");
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.g.selectAll("rect")
+        .data(color_map_b3d28cbd3a211a73e308dcd4e7ae3399.color.range().map(function(d, i) {
+          return {
+            x0: i ? color_map_b3d28cbd3a211a73e308dcd4e7ae3399.x(color_map_b3d28cbd3a211a73e308dcd4e7ae3399.color.domain()[i - 1]) : color_map_b3d28cbd3a211a73e308dcd4e7ae3399.x.range()[0],
+            x1: i < color_map_b3d28cbd3a211a73e308dcd4e7ae3399.color.domain().length ? color_map_b3d28cbd3a211a73e308dcd4e7ae3399.x(color_map_b3d28cbd3a211a73e308dcd4e7ae3399.color.domain()[i]) : color_map_b3d28cbd3a211a73e308dcd4e7ae3399.x.range()[1],
+            z: d
+          };
+        }))
+      .enter().append("rect")
+        .attr("height", 40 - 30)
+        .attr("x", function(d) { return d.x0; })
+        .attr("width", function(d) { return d.x1 - d.x0; })
+        .style("fill", function(d) { return d.z; });
+
+    color_map_b3d28cbd3a211a73e308dcd4e7ae3399.g.call(color_map_b3d28cbd3a211a73e308dcd4e7ae3399.xAxis).append("text")
+        .attr("class", "caption")
+        .attr("y", 21)
+        .attr("fill", "black")
+        .text("% Women Needing Permission for Healthcare");
+    
+            choropleth_4ce1169bfa5cd08dae5bc08c0a745be1.addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var marker_2da4bcb6e509f1981f29de500f6f5058 = L.marker(
+                [22.5, 90.3],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_ea8352a9f16680270ca6948990dd251d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eBarishal\u003cbr\u003e30.6%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_4a88cb9ce3ff331965f925dd06c4ce2a = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_b0dca8398cbd4128c37dbb11919b45d6 = $(`<div id="html_b0dca8398cbd4128c37dbb11919b45d6" style="width: 100.0%; height: 100.0%;">         <b>BARISHAL</b><br>         Permission Barrier: 30.6%<br>         Overall Barrier Score: 24.2%<br>         No Education: 8.0%<br>         Higher Education: 18.4%         </div>`)[0];
+                popup_4a88cb9ce3ff331965f925dd06c4ce2a.setContent(html_b0dca8398cbd4128c37dbb11919b45d6);
+            
+        
+
+        marker_2da4bcb6e509f1981f29de500f6f5058.bindPopup(popup_4a88cb9ce3ff331965f925dd06c4ce2a)
+        ;
+
+        
+    
+    
+            marker_2da4bcb6e509f1981f29de500f6f5058.bindTooltip(
+                `<div>
+                     Barishal
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2da4bcb6e509f1981f29de500f6f5058.setIcon(div_icon_ea8352a9f16680270ca6948990dd251d);
+            
+    
+            var marker_5b8f6821630bd5660972624563f9628f = L.marker(
+                [22.5, 91.8],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_1e50a6d411928b7986dd8d5836a2a4cc = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eChattogram\u003cbr\u003e35.0%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_cf60c5bfb7764df60f72ec34027dca5d = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_ee71aae5b5d3b3dcc96bdaf4b826e6aa = $(`<div id="html_ee71aae5b5d3b3dcc96bdaf4b826e6aa" style="width: 100.0%; height: 100.0%;">         <b>CHATTOGRAM</b><br>         Permission Barrier: 35.0%<br>         Overall Barrier Score: 28.5%<br>         No Education: 14.0%<br>         Higher Education: 11.6%         </div>`)[0];
+                popup_cf60c5bfb7764df60f72ec34027dca5d.setContent(html_ee71aae5b5d3b3dcc96bdaf4b826e6aa);
+            
+        
+
+        marker_5b8f6821630bd5660972624563f9628f.bindPopup(popup_cf60c5bfb7764df60f72ec34027dca5d)
+        ;
+
+        
+    
+    
+            marker_5b8f6821630bd5660972624563f9628f.bindTooltip(
+                `<div>
+                     Chattogram
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5b8f6821630bd5660972624563f9628f.setIcon(div_icon_1e50a6d411928b7986dd8d5836a2a4cc);
+            
+    
+            var marker_6f4520398590959a606c8a3b9bef5efb = L.marker(
+                [23.8, 90.2],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_c93208c0f6e7d1cfcf2d2662b1918665 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eDhaka\u003cbr\u003e27.6%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_269183c457495cf150aae39582e4519e = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_75f43f038a4be48d734415be3b19fa5e = $(`<div id="html_75f43f038a4be48d734415be3b19fa5e" style="width: 100.0%; height: 100.0%;">         <b>DHAKA</b><br>         Permission Barrier: 27.6%<br>         Overall Barrier Score: 22.7%<br>         No Education: 12.9%<br>         Higher Education: 16.6%         </div>`)[0];
+                popup_269183c457495cf150aae39582e4519e.setContent(html_75f43f038a4be48d734415be3b19fa5e);
+            
+        
+
+        marker_6f4520398590959a606c8a3b9bef5efb.bindPopup(popup_269183c457495cf150aae39582e4519e)
+        ;
+
+        
+    
+    
+            marker_6f4520398590959a606c8a3b9bef5efb.bindTooltip(
+                `<div>
+                     Dhaka
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6f4520398590959a606c8a3b9bef5efb.setIcon(div_icon_c93208c0f6e7d1cfcf2d2662b1918665);
+            
+    
+            var marker_f18340e640335330f375082591e10a1d = L.marker(
+                [22.8, 89.2],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_2b2d64bfd4ebfc181999939ae76bd7c4 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eKhulna\u003cbr\u003e26.1%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_0b122f5b05728cf828459063b4b455c4 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_fc91dd13293f7b2b14ae0e22045f88c0 = $(`<div id="html_fc91dd13293f7b2b14ae0e22045f88c0" style="width: 100.0%; height: 100.0%;">         <b>KHULNA</b><br>         Permission Barrier: 26.1%<br>         Overall Barrier Score: 19.5%<br>         No Education: 10.2%<br>         Higher Education: 15.9%         </div>`)[0];
+                popup_0b122f5b05728cf828459063b4b455c4.setContent(html_fc91dd13293f7b2b14ae0e22045f88c0);
+            
+        
+
+        marker_f18340e640335330f375082591e10a1d.bindPopup(popup_0b122f5b05728cf828459063b4b455c4)
+        ;
+
+        
+    
+    
+            marker_f18340e640335330f375082591e10a1d.bindTooltip(
+                `<div>
+                     Khulna
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f18340e640335330f375082591e10a1d.setIcon(div_icon_2b2d64bfd4ebfc181999939ae76bd7c4);
+            
+    
+            var marker_0177bbf9fa00ff2b6209b74935e8c01d = L.marker(
+                [24.8, 90.3],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_4cd3dbe133ee736d071c334e060f4e90 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eMymensingh\u003cbr\u003e32.4%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_ba8e0c36e96da97e4c3a24fa893cde7a = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_78af540763b5479666541c9a2443ac10 = $(`<div id="html_78af540763b5479666541c9a2443ac10" style="width: 100.0%; height: 100.0%;">         <b>MYMENSINGH</b><br>         Permission Barrier: 32.4%<br>         Overall Barrier Score: 27.9%<br>         No Education: 18.1%<br>         Higher Education: 13.5%         </div>`)[0];
+                popup_ba8e0c36e96da97e4c3a24fa893cde7a.setContent(html_78af540763b5479666541c9a2443ac10);
+            
+        
+
+        marker_0177bbf9fa00ff2b6209b74935e8c01d.bindPopup(popup_ba8e0c36e96da97e4c3a24fa893cde7a)
+        ;
+
+        
+    
+    
+            marker_0177bbf9fa00ff2b6209b74935e8c01d.bindTooltip(
+                `<div>
+                     Mymensingh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0177bbf9fa00ff2b6209b74935e8c01d.setIcon(div_icon_4cd3dbe133ee736d071c334e060f4e90);
+            
+    
+            var marker_23089b398ccbd8832ca73cdf8be6d3ba = L.marker(
+                [24.7, 88.8],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_1963086040441d6c65be8e24b9326e24 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eRajshahi\u003cbr\u003e31.6%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_4c3f91e411b446cce8e30fd6a92ef728 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_8639265cf09a03812008becbcd98a24d = $(`<div id="html_8639265cf09a03812008becbcd98a24d" style="width: 100.0%; height: 100.0%;">         <b>RAJSHAHI</b><br>         Permission Barrier: 31.6%<br>         Overall Barrier Score: 25.6%<br>         No Education: 13.8%<br>         Higher Education: 16.4%         </div>`)[0];
+                popup_4c3f91e411b446cce8e30fd6a92ef728.setContent(html_8639265cf09a03812008becbcd98a24d);
+            
+        
+
+        marker_23089b398ccbd8832ca73cdf8be6d3ba.bindPopup(popup_4c3f91e411b446cce8e30fd6a92ef728)
+        ;
+
+        
+    
+    
+            marker_23089b398ccbd8832ca73cdf8be6d3ba.bindTooltip(
+                `<div>
+                     Rajshahi
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_23089b398ccbd8832ca73cdf8be6d3ba.setIcon(div_icon_1963086040441d6c65be8e24b9326e24);
+            
+    
+            var marker_d596b2eae2634f52eb09a043b85292d7 = L.marker(
+                [25.7, 89.2],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_ea4640b57d77ed1c0aad56cac9ef63e9 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eRangpur\u003cbr\u003e26.8%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_8f3b9981201ed2cd20852cd120660af4 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_4c2cf15c01091c32b9576e646ef9ca5a = $(`<div id="html_4c2cf15c01091c32b9576e646ef9ca5a" style="width: 100.0%; height: 100.0%;">         <b>RANGPUR</b><br>         Permission Barrier: 26.8%<br>         Overall Barrier Score: 22.5%<br>         No Education: 16.6%<br>         Higher Education: 14.7%         </div>`)[0];
+                popup_8f3b9981201ed2cd20852cd120660af4.setContent(html_4c2cf15c01091c32b9576e646ef9ca5a);
+            
+        
+
+        marker_d596b2eae2634f52eb09a043b85292d7.bindPopup(popup_8f3b9981201ed2cd20852cd120660af4)
+        ;
+
+        
+    
+    
+            marker_d596b2eae2634f52eb09a043b85292d7.bindTooltip(
+                `<div>
+                     Rangpur
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d596b2eae2634f52eb09a043b85292d7.setIcon(div_icon_ea4640b57d77ed1c0aad56cac9ef63e9);
+            
+    
+            var marker_210fe8d1f9569d02e136c626a079cbf7 = L.marker(
+                [24.9, 91.9],
+                {
+}
+            ).addTo(map_c55e90e9de7a2053f32e9a34e744900d);
+        
+    
+            var div_icon_ce619b3abebdc5e839eef51ca744a698 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:10px; font-weight:bold; color:#333;\"\u003eSylhet\u003cbr\u003e31.3%\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_ddd72c2e843d8bd74acff9df0db452fb = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_70b2e2b2a651226dd8ea7511f0b6b378 = $(`<div id="html_70b2e2b2a651226dd8ea7511f0b6b378" style="width: 100.0%; height: 100.0%;">         <b>SYLHET</b><br>         Permission Barrier: 31.3%<br>         Overall Barrier Score: 24.6%<br>         No Education: 18.1%<br>         Higher Education: 10.8%         </div>`)[0];
+                popup_ddd72c2e843d8bd74acff9df0db452fb.setContent(html_70b2e2b2a651226dd8ea7511f0b6b378);
+            
+        
+
+        marker_210fe8d1f9569d02e136c626a079cbf7.bindPopup(popup_ddd72c2e843d8bd74acff9df0db452fb)
+        ;
+
+        
+    
+    
+            marker_210fe8d1f9569d02e136c626a079cbf7.bindTooltip(
+                `<div>
+                     Sylhet
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_210fe8d1f9569d02e136c626a079cbf7.setIcon(div_icon_ce619b3abebdc5e839eef51ca744a698);
+            
+</script>
+</html>
