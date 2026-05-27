@@ -4,12 +4,14 @@ A data investigation into women's healthcare inequality across Bangladesh using 
 
 > *"In Bangladesh, a woman's health is not just determined by disease. It is determined by where she was born, how educated she is, and whether someone will give her permission to see a doctor."*
 
+![Dashboard Preview](Permission_to_Live_Dashboard.png)
+
 ---
 
 ## 🔗 Project Files
 
 - 📓 `BD_Health_Atlas_Project1.ipynb` — Full Python analysis notebook
-- 📊 `Permission_to_Live_Dashboard.pdf` — Power BI dashboard (PDF export)
+- 📊 `Permission_to_Live_Dashboard.pbix` — Interactive Power BI dashboard with division slicer and KPI cards
 - 🗺️ `bangladesh_health_map.html` — Interactive choropleth map (open in browser)
 - 📁 CSV files — Cleaned and aggregated datasets
 
