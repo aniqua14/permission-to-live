@@ -52,17 +52,17 @@ This project analyzes three core questions using the Bangladesh Demographic and 
 
 ## 🗂️ Project Structure
 
-- `BD_Health_Atlas_Project1.ipynb` — Full analysis notebook with explanations
-- `Permission_to_Live_Dashboard.pbix` — Power BI source file
-- `Permission_to_Live_Dashboard.pdf` — Dashboard PDF export
-- `bangladesh_health_map.html` — Interactive Folium map
-- `division_summary.csv` — Key indicators per division
-- `barriers_by_division.csv` — Healthcare barrier scores per division
-- `wealth_barriers.csv` — Barrier analysis by wealth level
-- `urban_rural.csv` — Urban vs rural barrier comparison
-- `edu_by_division.csv` — Education levels by division
-- `women_clean.csv` — Cleaned individual women's dataset
-- `*.png` — All saved chart visualizations
+* `BD_Health_atlas_Project1.ipynb` — Full analysis notebook with explanations
+* `Permission_to_Live_Dashboard.pbix` — Updated interactive Power BI dashboard with division slicer and KPI cards
+* `Permission_to_Live_Dashboard.png` — Dashboard screenshot preview
+* `bangladesh_health_map.html` — Interactive Folium map
+* `division_summary.csv` — Key indicators per division
+* `barriers_by_division.csv` — Healthcare barrier scores per division
+* `wealth_barriers.csv` — Barrier analysis by wealth level
+* `urban_rural.csv` — Urban vs rural barrier comparison
+* `edu_by_division.csv` — Education levels by division
+* `women_clean.csv` — Cleaned individual women's dataset
+* `*.png` — All saved chart visualizations
 
 ---
 
